@@ -288,6 +288,7 @@ def main():
 
         elif escolha == '4':
             matriz_A.transpor()
+            matriz_A.imprimir("A transposta")
 
         elif escolha == '5':
             try:
