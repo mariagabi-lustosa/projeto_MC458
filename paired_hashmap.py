@@ -1,9 +1,13 @@
+import csv
+
+
 class HashTable:
     def __init__(self, size):
         # size é a quantidade de buckets (slots) na hashtable
         self.size = size
         # cria uma lista de listas vazias, cada qual servindo como bucket pra armazenar pares chave-valor
         self.hash_table = [[] for _ in range(size)] 
+
 
     def set_val(self, key, val):
         # calcula o índice do bucket em que o par chave-valor deve ser armazenado
@@ -20,6 +24,7 @@ class HashTable:
         # colisões são resolvidas usando chaining (vários pares chave-valor podem coexistir num mesmo bucket)
         bucket.append((key, val))
 
+
     def get_val(self, key):
         hashed_key = hash(key) % self.size
         bucket = self.hash_table[hashed_key]
@@ -30,7 +35,7 @@ class HashTable:
             if record_key == key:
                 return record_val # se encontra, retorna o valor
         return 0                  # para matriz esparsa, posição não armazenada = 0
-    
+
 
     def delete_val(self, key):
         # identifica o bucket em que a chave deve existir
@@ -42,6 +47,7 @@ class HashTable:
             if record_key == key: # remove o par chave-valor
                 bucket.pop(index)
                 return
+
 
     def __str__(self):
         '''
@@ -64,6 +70,7 @@ class PairedHashTable:
         self.forward = HashTable(size)
         self.backward = HashTable(size)
 
+
     def set_val(self, key, val):
         '''
         key deve ser uma tupla (i, j).
@@ -79,11 +86,13 @@ class PairedHashTable:
             self.forward.set_val((i, j), val)
             self.backward.set_val((j, i), val)
 
+
     def get_val(self, key):
         '''
         A[i, j] normal.
         '''
         return self.forward.get_val(key)
+
 
     def get_val_T(self, key):
         '''
@@ -92,64 +101,72 @@ class PairedHashTable:
         '''
         return self.backward.get_val(key)
 
+
     def delete_val(self, key):
         i, j = key
         self.forward.delete_val((i, j))
         self.backward.delete_val((j, i))
 
+
     def __str__(self):
         return "forward: " + str(self.forward) + "\nbackward: " + str(self.backward)
 
 
-def convert_matrix_hashtable(A):
+def convert_triples_to_paired_hash(triplas):
     '''
-    Converte uma matriz (lista de listas) em um PairedHashTable.
-    Continua sendo O(n^2) para percorrer a matriz,
-    mas depois você consegue acessar A e A^T em O(1) por chave.
+    Converte uma lista de triplas (i, j, val) em uma PairedHashTable.
+    Isso é O(k), com k = número de elementos não nulos.
     '''
-    rows = len(A)
-    if rows > 0:
-        columns = len(A[0])
-    else:
-        columns = 0
+    k = len(triplas)          # quantidade de elementos não nulos
+    size = max(1, 2 * k)      # tamanho da hash table
 
-    # quantidade de elementos não nulos
-    k = 0 
-    for i in range(rows):
-        for j in range(columns):
-            if A[i][j] != 0:
-                k += 1
-    
-    # escolher o tamanho da hash table
-    size = max(1, 2 * k) 
-
-    # agora usamos PairedHashTable
     ht = PairedHashTable(size)
 
-    for i in range(rows):
-        for j in range(columns):
-            val = A[i][j]
-            if val != 0:
-                ht.set_val((i, j), val)
+    for i, j, val in triplas:
+        if val != 0:          # só para garantir
+            ht.set_val((i, j), val)
 
     return ht
 
 
+def load_triples_from_csv(filename):
+    '''
+    Lê um arquivo CSV no formato row,col,value.
+    Devolve uma lista de triplas (i, j, val).
+    '''
+    triples = []
+    with open(filename, newline='') as f:
+        reader = csv.reader(f)
+        header = next(reader, None)  # pula o cabeçalho
+
+        for row in reader:
+            if not row:
+                continue
+            i = int(row[0])
+            j = int(row[1])
+            val = int(row[2])
+            triples.append((i, j, val))
+
+    return triples
+
+
 '''
-teste com matriz esparsa
+Teste com matriz esparsa
 '''
-A = [[0, 0, 5],
-     [0, 0, 0],
-     [7, 0, 0]]
+if __name__ == "__main__":
+    filename = "sparse_n100_p20.csv"
 
-ht = convert_matrix_hashtable(A)
+    triples = load_triples_from_csv(filename)
+    ht = convert_triples_to_paired_hash(triples)
 
-# A sem transpor
-print(ht.get_val((0, 2)))  # 5
-print(ht.get_val((2, 0)))  # 7
-print(ht.get_val((1, 1)))  # 0
+    # matriz sem transpor
+    print("Acessos na matriz A:")
+    print(ht.get_val((0, 0)))
+    print(ht.get_val((10, 19)))
+    print(ht.get_val((40, 90)))
 
-# A transposta (usando backward)
-print("--- transposta ---")
-print(ht.get_val_T((2, 0)))  # A^T[2,0] = A[0,2] = 5
-print(ht.get_val_T((0, 2)))  # A^T[0,2] = A[2,0] = 7
+    # matriz transposta
+    print("\nAcessos na matriz A^T:")
+    print(ht.get_val_T((0, 0)))
+    print(ht.get_val_T((19, 10)))
+    print(ht.get_val_T((90, 40)))
