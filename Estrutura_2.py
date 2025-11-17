@@ -1,3 +1,5 @@
+import csv
+
 '''
 O nó da estrutura do heap que tem:
 - os filhos (esquerda e direita)
@@ -272,36 +274,26 @@ class Estrutura2:
 '''
 Essa função recebe a matriz e cria uma estrutura com a árvore e em seguida adiciona todos os elementos não nulos
 '''
-def matriz_para_arvore(matriz):
-    linhas = len(matriz)
-    if linhas == 0: 
-        print('Matriz vazia')
-        return Estrutura2(0, 0)
-    
-    colunas = len(matriz[0])
-    heap = Estrutura2(linhas, colunas)
+def csv_para_arvore(filename):
+    heap = Estrutura2(100, 100)
+    with open(filename, newline='') as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
 
-    for i in range(linhas):
-        for j in range(colunas):
-            if matriz[i][j] != 0:
-                heap.inserir(i, j, matriz[i][j])
+        for row in reader:
+            if not row:
+                continue
+            i = int(row[0])
+            j = int(row[1])
+            val = int(row[2])
+            heap.inserir(i,j,val)
+
     return heap
 
 # Para teste das funções
 def main():
-    matriz_A = [
-        [5, 0, 0],
-        [0, 0, 1],
-        [2, 0, 0]
-    ]
-    matriz_B = [
-        [3, 1, 0],
-        [3, 0, 0],
-        [0, 0, 4]
-    ]
-    
-    matriz_A = matriz_para_arvore(matriz_A)
-    matriz_B = matriz_para_arvore(matriz_B)
+    matriz_A = csv_para_arvore("sparse_n100_p5.csv")
+    matriz_B = csv_para_arvore("sparse_n100_p10.csv")
 
     matriz_A.imprimir("A")
     matriz_B.imprimir("B")
