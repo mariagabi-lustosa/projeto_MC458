@@ -1,4 +1,5 @@
 import csv
+from collections import defaultdict
 
 
 class HashTable:
@@ -89,27 +90,129 @@ class PairedHashTable:
 
     def get_val(self, key):
         '''
-        A[i, j] normal.
+        Retorna A[i, j], onde key = (i, j).
+        Para posições não armazenadas, retorna 0 (matriz esparsa).
         '''
         return self.forward.get_val(key)
 
 
-    def get_val_T(self, key):
+    def transpose(self):
         '''
-        Valor da transposta: A^T[i, j] = A[j, i].
-        Aqui usamos a tabela backward diretamente.
+        Matriz transposta está armazenada em backward, então para retornar
+        A^T basta ter um objeto que troca as tabelas forward e backward
+        de lugar.
         '''
-        return self.backward.get_val(key)
-
-
-    def delete_val(self, key):
-        i, j = key
-        self.forward.delete_val((i, j))
-        self.backward.delete_val((j, i))
+        T = PairedHashTable(self.size)
+        T.forward = self.backward # A^T
+        T.backward = self.forward # (A^T)^T = A
+        return T
 
 
     def __str__(self):
         return "forward: " + str(self.forward) + "\nbackward: " + str(self.backward)
+    
+
+    def items(self):
+        '''
+        Itera sobre todos os pares (key, val) armazenados.
+        '''
+        result = []
+        for bucket in self.hash_table:
+            for key, val in bucket:
+                result.append((key,val))
+        return result
+    
+
+    def add_matrix(A, B):
+        '''
+        C = A + B
+        '''
+        # obtendo a quantidade de elementos não nulos em A e B
+        A_elements = A.forward.items() # lista de ((i,j), val)
+        B_elements = B.forward.items()
+
+        kA = len(A_elements)
+        kB = len(B_elements)
+
+        worse_k = kA + kB
+        len_hash = max(1, 2*worse_k)
+
+        C = PairedHashTable(len_hash)
+
+        # copiando elementos não nulos de A para C
+        for (i,j), A_val in A_elements: 
+            C.set_val((i,j), A_val)
+
+        for (i,j), B_val in B_elements:
+            current_val = C.get_val((i,j))
+            new_val = current_val + B_val
+            C.set_val((i,j), new_val)
+
+        return C
+    
+
+    def scalar_mul(alpha, A):
+        '''
+        C = alpha * A
+        '''
+        A_elements = A.forward.items()
+        k = len(A_elements)
+
+        len_hash = max(1, 2*k)
+        C = PairedHashTable(len_hash)
+
+        for (i,j), val in A_elements:
+            new_val = alpha * val
+            C.set_val((i,j), new_val)
+        
+        return C
+    
+
+    def matrix_mul(A, B):
+        '''
+        C = A x B
+
+        Aqui, supomos que A e B têm dimensões compatíveis.
+        Cada matriz é representada por seus elementos não nulos.
+        '''
+        # elementos não nulos de A e B
+        A_elements = A.forward.items() # lista de ((i, k), valA)
+        B_elements = B.forward.items() # lista de ((k, j), valB)
+
+
+        rows_B = defaultdict(list) # para cada k -> lista de (j, B_val)
+
+        for (k,j), B_val in B_elements:
+            rows_B[k].append((j, B_val))
+
+
+        kA =  len(A_elements)
+        total_B = len(B_elements)
+        n_rows_B = len(rows_B)
+
+        if n_rows_B > 0:
+            dB = total_B / n_rows_B # média de não nulos por linha de B
+        else:
+            dB = 0
+
+        estimate_kC = int(kA * max(1, dB))
+        len_hash_C = max(1, 2 * estimate_kC)
+
+        C = PairedHashTable(len_hash_C)
+
+        # para cada elemento não nulo A[i,k], combina com todos B[k,j] da linha k
+        # C[i,j] += A[i,k] * B[k,j]
+        for (i,k), A_val in A_elements:
+            # pega a linha k de B (se não existir, retorna lista vazia)
+            row_B_k = rows_B.get(k, [])
+
+            for j, B_val in row_B_k:
+                C_key = (i,j)
+                current_val = C.get_val(C_key)
+                new_val = current_val + A_val + B_val
+                C.set_val(C_key, new_val)
+
+        return C
 
 
 def convert_triples_to_paired_hash(triplas):
@@ -157,16 +260,16 @@ if __name__ == "__main__":
     filename = "sparse_n100_p20.csv"
 
     triples = load_triples_from_csv(filename)
-    ht = convert_triples_to_paired_hash(triples)
 
     # matriz sem transpor
-    print("Acessos na matriz A:")
-    print(ht.get_val((0, 0)))
-    print(ht.get_val((10, 19)))
-    print(ht.get_val((40, 90)))
+    A = convert_triples_to_paired_hash(triples)
+    print("Matriz A:")
+    print(A.get_val((0, 0)))
+    print(A.get_val((10, 19)))
+    print(A.get_val((40, 90)))
 
     # matriz transposta
-    print("\nAcessos na matriz A^T:")
-    print(ht.get_val_T((0, 0)))
-    print(ht.get_val_T((19, 10)))
-    print(ht.get_val_T((90, 40)))
+    AT = A.transpose()
+    print("\nMatriz A^T:")
+    print(AT.get_val((19,10)))
+    
