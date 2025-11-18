@@ -1,3 +1,15 @@
+import csv
+
+'''
+O nó da estrutura do heap que tem:
+- os filhos (esquerda e direita)
+- a altura que ele está
+- sua linha correspondente na matriz
+- sua coluna correspondente na matriz
+- seu valor
+
+tem uma função chamada posição que retorna uma tupla com a linha e a coluna do nó
+'''
 class No:
     def __init__(self, linha, coluna, valor):
         self.linha = linha
@@ -7,34 +19,47 @@ class No:
         self.direita = None
         self.altura = 1
 
-    def tupla_chave(self):
+    def posicao(self):
         return (self.linha, self.coluna)
 
+
+'''
+Classe da árvore que é responsável por:
+- Criar a árvore e guardar os dados
+- inserir elementos balanceando a arvore
+- buscar um elemento
+- retornar os elementos da arvore em ordem
+'''
 class Arvore:
+    # Montagem inicial da árvore indicando o nó da raiz e o total de elementos (k_elementos)
     def __init__(self):
         self.raiz = None
         self.k_elementos = 0
 
+    # Chama a função inserir recursivo para adicionar um novo elemento fazendo o devido balanceamento
     def inserir(self, linha, coluna, valor):
         self.raiz = self._inserir_recursivo(self.raiz, linha, coluna, valor)
 
+    # Faz uma busca binária nos elementos da árvore para ver o valor do elemento
     def buscar(self, linha, coluna):
         no = self.raiz
         while no is not None:
-            if (linha, coluna) == no.tupla_chave():
+            if (linha, coluna) == no.posicao():
                 return no.valor
-            elif (linha, coluna) < no.tupla_chave():
+            elif (linha, coluna) < no.posicao():
                 no = no.esquerda
             else:
                 no = no.direita
         return 0
 
+    # Retorna a altura do nó atual
     def _get_altura(self, no):
         if not no: 
             return 0
         else:
             return no.altura
-
+        
+    
     def _get_balanceamento(self, no):
         if not no: 
             return 0
@@ -63,27 +88,28 @@ class Arvore:
         if not no:
             self.k_elementos += 1
             return No(linha, coluna, valor)
-        if (linha, coluna) < no.tupla_chave():
+        if (linha, coluna) < no.posicao():
             no.esquerda = self._inserir_recursivo(no.esquerda, linha, coluna, valor)
-        elif (linha, coluna) > no.tupla_chave():
+        elif (linha, coluna) > no.posicao():
             no.direita = self._inserir_recursivo(no.direita, linha, coluna, valor)
         else:
             no.valor = valor
             return no
         no.altura = 1 + max(self._get_altura(no.esquerda), self._get_altura(no.direita))
         balanceamento = self._get_balanceamento(no)
-        if balanceamento > 1 and (linha, coluna) < no.esquerda.tupla_chave():
+        if balanceamento > 1 and (linha, coluna) < no.esquerda.posicao():
             return self._rotacao_direita(no)
-        if balanceamento < -1 and (linha, coluna) > no.direita.tupla_chave():
+        if balanceamento < -1 and (linha, coluna) > no.direita.posicao():
             return self._rotacao_esquerda(no)
-        if balanceamento > 1 and (linha, coluna) > no.esquerda.tupla_chave():
+        if balanceamento > 1 and (linha, coluna) > no.esquerda.posicao():
             no.esquerda = self._rotacao_esquerda(no.esquerda)
             return self._rotacao_direita(no)
-        if balanceamento < -1 and (linha, coluna) < no.direita.tupla_chave():
+        if balanceamento < -1 and (linha, coluna) < no.direita.posicao():
             no.direita = self._rotacao_direita(no.direita)
             return self._rotacao_esquerda(no)
         return no
 
+    # Retorna uma lista ordenada com todos os nós da lista
     def em_ordem(self):
         lista_nos = []
         self._em_ordem_recursivo(self.raiz, lista_nos)
@@ -95,6 +121,19 @@ class Arvore:
             lista_nos.append(no)
             self._em_ordem_recursivo(no.direita, lista_nos)
 
+
+'''
+Essa classe cria uma estrutura com a arvore, altura da matriz, largura da matria e uma flag para indicar se a matriz está transposta.
+também faz as operações necessárias:
+- retornar o total de elementos
+- inserir elemento
+- acessar elemento
+- transpor a matriz
+- somar duas matrizes
+- multiplicar a matriz por escalar
+- multiplicar duas matrizes
+- imprimir um resumo da matriz 
+'''
 class Estrutura2:
     def __init__(self, total_linhas, total_colunas):
         self.arvore = Arvore()
@@ -102,37 +141,45 @@ class Estrutura2:
         self.n = total_colunas
         self.is_transposta = False
 
+    # Retorna o total de elementos da estrutura
     def get_k(self):
         return self.arvore.k_elementos
     
+    # Retorna as dimensões da matriz, trocando a ordem se estiver transposta
     def get_dimensoes(self):
         if not self.is_transposta:
             return (self.m, self.n)
         else:
             return (self.n, self.m)
 
+    # Adiciona um novo valor na matriz 
     def inserir(self, i, j, valor):
         if valor == 0: 
             return
-        m_real, n_real = self.get_dimensoes()
-        if i >= m_real or j >= n_real or i < 0 or j < 0:
-            print(f"Erro: Índice ({i},{j}) fora da matriz {m_real}x{n_real}")
+        
+        m, n = self.get_dimensoes()
+
+        if i >= m or j >= n or i < 0 or j < 0:
+            print(f"Erro: Índice ({i},{j}) fora da matriz {m}x{n}")
             return
+        
         if not self.is_transposta:
             self.arvore.inserir(i, j, valor)
         else:
             self.arvore.inserir(j, i, valor)
 
+    # Procura um valor na matriz, cuidando se ela é transposta ou não
     def acessar(self, i, j):
         if not self.is_transposta:
             return self.arvore.buscar(i, j)
         else:
             return self.arvore.buscar(j, i)
 
+    # Transpõe trocando a flag
     def transpor(self):
         self.is_transposta = not self.is_transposta
-        self.m, self.n = self.n, self.m
 
+    # Retorna todos os elementos
     def _percorrer_elementos(self):
         lista_elementos = []
         lista_nos = self.arvore.em_ordem()
@@ -144,9 +191,10 @@ class Estrutura2:
                 lista_elementos.append((no.coluna, no.linha, no.valor))
         return lista_elementos
 
-    def somar(self, outra_matriz):
+    # Cria uma nova estrutura C que contem a soma das duas matrizes
+    def somar(self, matriz_b):
         m_A, n_A = self.get_dimensoes()
-        m_B, n_B = outra_matriz.get_dimensoes()
+        m_B, n_B = matriz_b.get_dimensoes()
 
         if (m_A, n_A) != (m_B, n_B):
             print("Os tamanhos são diferentes")
@@ -157,12 +205,13 @@ class Estrutura2:
         for i, j, valor in self._percorrer_elementos():
             matriz_C.inserir(i, j, valor)
 
-        for i, j, valor_B in outra_matriz._percorrer_elementos():
+        for i, j, valor_B in matriz_b._percorrer_elementos():
             valor_C_atual = matriz_C.acessar(i, j)
             matriz_C.inserir(i, j, valor_C_atual + valor_B)
         
         return matriz_C
 
+    # Cria estutura c com a multiplicação da matriz por um escalar
     def multiplicar_por_escalar(self, escalar):
         if escalar == 0:
             return Estrutura2(self.m, self.n)
@@ -181,9 +230,10 @@ class Estrutura2:
         
         return matriz_C
 
-    def multiplicar(self, outra_matriz):
+    # faz a multiplicação das matrizes
+    def multiplicar(self, matriz_b):
         m_A, n_A = self.get_dimensoes()
-        m_B, n_B = outra_matriz.get_dimensoes()
+        m_B, n_B = matriz_b.get_dimensoes()
 
         if n_A != m_B:
             print("Dimensões diferente")
@@ -192,7 +242,7 @@ class Estrutura2:
         matriz_C = Estrutura2(m_A, n_B)
         
         lista_A = self._percorrer_elementos()
-        lista_B = outra_matriz._percorrer_elementos()
+        lista_B = matriz_b._percorrer_elementos()
 
         for i, k, valor_A in lista_A:
             for k_prime, j, valor_B in lista_B:
@@ -202,6 +252,7 @@ class Estrutura2:
 
         return matriz_C
     
+    # imprime uma versão resumida da matriz    
     def imprimir(self, nome):
         m, n = self.get_dimensoes()
         k = self.get_k()
@@ -220,36 +271,29 @@ class Estrutura2:
             linha, coluna, valor = lista_elementos[i]
             print(f"  ({linha}, {coluna}) = {valor:.2f}")
 
+'''
+Essa função recebe a matriz e cria uma estrutura com a árvore e em seguida adiciona todos os elementos não nulos
+'''
+def csv_para_arvore(filename):
+    heap = Estrutura2(100, 100)
+    with open(filename, newline='') as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
 
-def matriz_para_arvore(matriz):
-    linhas = len(matriz)
-    if linhas == 0: 
-        print('Matriz vazia')
-        return Estrutura2(0, 0)
-    
-    colunas = len(matriz[0])
-    matriz_esparsa = Estrutura2(linhas, colunas)
+        for row in reader:
+            if not row:
+                continue
+            i = int(row[0])
+            j = int(row[1])
+            val = int(row[2])
+            heap.inserir(i,j,val)
 
-    for i in range(linhas):
-        for j in range(colunas):
-            if matriz[i][j] != 0:
-                matriz_esparsa.inserir(i, j, matriz[i][j])
-    return matriz_esparsa
+    return heap
 
+# Para teste das funções
 def main():
-    matriz_A = [
-        [5, 0, 0],
-        [0, 0, 1],
-        [2, 0, 0]
-    ]
-    matriz_B = [
-        [3, 1, 0],
-        [3, 0, 0],
-        [0, 0, 4]
-    ]
-    
-    matriz_A = matriz_para_arvore(matriz_A)
-    matriz_B = matriz_para_arvore(matriz_B)
+    matriz_A = csv_para_arvore("sparse_n100_p5.csv")
+    matriz_B = csv_para_arvore("sparse_n100_p10.csv")
 
     matriz_A.imprimir("A")
     matriz_B.imprimir("B")
@@ -288,6 +332,7 @@ def main():
 
         elif escolha == '4':
             matriz_A.transpor()
+            matriz_A.imprimir("A transposta")
 
         elif escolha == '5':
             try:
