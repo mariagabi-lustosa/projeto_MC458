@@ -162,7 +162,7 @@ class Estrutura2:
             matriz_C.inserir(i, j, valor_C_atual + valor_B)
         
         return matriz_C
-
+    
     def multiplicar_por_escalar(self, escalar):
         if escalar == 0:
             return Estrutura2(self.m, self.n)
