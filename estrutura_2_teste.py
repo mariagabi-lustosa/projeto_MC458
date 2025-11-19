@@ -6,7 +6,7 @@ class No:
         self.esquerda = None
         self.direita = None
         self.altura = 1
-        self.esta_ativo = True # True se valor != 0
+        
 
     def tupla_chave(self):
         return (self.linha, self.coluna)
@@ -211,12 +211,6 @@ class Estrutura2:
             
             no.valor *= escalar
             
-           
-            if abs(no.valor) < 1e-9:
-                no.esta_ativo = False
-            else:
-                no.esta_ativo = True
-            
             
             self._aplicar_escalar_recursivo(no.esquerda, escalar)
             self._aplicar_escalar_recursivo(no.direita, escalar)
@@ -226,12 +220,12 @@ class Estrutura2:
         lista_ativos = []
         
         for no in self.arvore.em_ordem(): 
-            if no.esta_ativo:
+            if abs(no.valor) > 1e-9:
                 lista_ativos.append(no)
         return lista_ativos
     
     def deep_copy(self):
-        """ Implementação do deep_copy da Estrutura 2 (Matriz) em O(k). """
+        # percorre todos os nós da arvore e criar novos nós (e a nova estrutura da árvore) em tempo linear.
         m_real, n_real = self.get_dimensoes()
         nova_matriz = Estrutura2(m_real, n_real)
         
@@ -240,7 +234,7 @@ class Estrutura2:
         nova_matriz.n = self.n
         nova_matriz.is_transposta = self.is_transposta 
 
-        # Copia a AVL em O(k)
+        # copia a arvore
         nova_matriz.arvore.raiz = nova_matriz.arvore.deep_copy_tree(self.arvore.raiz)
         nova_matriz.arvore.k_elementos = self.arvore.k_elementos
         
