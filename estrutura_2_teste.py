@@ -29,6 +29,22 @@ class Arvore:
             else:
                 no = no.direita
         return 0
+    
+    def deep_copy_tree(self, no_original):
+        """ Realiza uma cópia profunda recursiva da árvore (O(k)). """
+        if no_original is None:
+            return None
+        
+        # Cria um novo nó com os dados copiados
+        novo_no = No(no_original.linha, no_original.coluna, no_original.valor)
+        novo_no.altura = no_original.altura
+        novo_no.esta_ativo = no_original.esta_ativo
+        
+        # Constrói recursivamente as sub-árvores
+        novo_no.esquerda = self.deep_copy_tree(no_original.esquerda)
+        novo_no.direita = self.deep_copy_tree(no_original.direita)
+        
+        return novo_no
 
     def _construir_balanceada_recursivo(self, elementos_ordenados):
         # Constrói AVL a partir de lista ordenada em O(k). 
@@ -213,6 +229,22 @@ class Estrutura2:
             if no.esta_ativo:
                 lista_ativos.append(no)
         return lista_ativos
+    
+    def deep_copy(self):
+        """ Implementação do deep_copy da Estrutura 2 (Matriz) em O(k). """
+        m_real, n_real = self.get_dimensoes()
+        nova_matriz = Estrutura2(m_real, n_real)
+        
+        # Copia as dimensões originais (m e n sem transposta) e o estado da transposta
+        nova_matriz.m = self.m
+        nova_matriz.n = self.n
+        nova_matriz.is_transposta = self.is_transposta 
+
+        # Copia a AVL em O(k)
+        nova_matriz.arvore.raiz = nova_matriz.arvore.deep_copy_tree(self.arvore.raiz)
+        nova_matriz.arvore.k_elementos = self.arvore.k_elementos
+        
+        return nova_matriz
 
     def multiplicar_por_escalar(self, escalar):
       
