@@ -190,7 +190,7 @@ class Estrutura2:
     
    
     def _aplicar_escalar_recursivo(self, no, escalar):
-        """ Percorre a árvore e aplica o escalar, marcando zeros. O(k) """
+        
         if no:
             
             no.valor *= escalar
