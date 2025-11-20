@@ -61,7 +61,7 @@ def rodar_experimento():
         popular_matriz_esparsa(esparsa_A, dados_A)
         popular_matriz_esparsa(esparsa_B, dados_B)
         
-        # Densa
+        # Tradicional
         densa_A = MatrizTradicional(N, N)
         densa_B = MatrizTradicional(N, N)
         popular_matriz_densa(densa_A, dados_A)
@@ -74,7 +74,7 @@ def rodar_experimento():
         esparsa_A.multiplicar(esparsa_B) # Ou multiplicar_otimizado se tiver
         tempo_esparsa = time.time() - inicio
 
-        # Tempo Densa
+        # Tempo Tradicional
         inicio = time.time()
         densa_A.multiplicar_matriz(densa_B) # Método ingênuo O(N^3)
         tempo_densa = time.time() - inicio
@@ -88,9 +88,9 @@ def rodar_experimento():
         resultados.append({
             "Tamanho (N)": N,
             "Tempo Esparsa (s)": tempo_esparsa,
-            "Tempo Densa (s)": tempo_densa,
+            "Tempo Tradicional (s)": tempo_densa,
             "Memória Esparsa (bytes)": mem_esparsa,
-            "Memória Densa (bytes)": mem_densa
+            "Memória Tradicional (bytes)": mem_densa
         })
 
     return pd.DataFrame(resultados)
@@ -101,7 +101,7 @@ def plotar_resultados(df):
     # Gráfico 1: Tempo de Execução
     plt.figure(figsize=(10, 5))
     plt.plot(df["Tamanho (N)"], df["Tempo Esparsa (s)"], marker='o', label='Esparsa (Hash Map/AVL)')
-    plt.plot(df["Tamanho (N)"], df["Tempo Densa (s)"], marker='x', label='Densa (Lista de Listas)')
+    plt.plot(df["Tamanho (N)"], df["Tempo Tradicional (s)"], marker='x', label='Tradicional (Lista de Listas)')
     plt.xlabel('Tamanho da Matriz (NxN)')
     plt.ylabel('Tempo (segundos)')
     plt.title('Desempenho: Multiplicação de Matrizes')
@@ -114,7 +114,7 @@ def plotar_resultados(df):
     # Gráfico 2: Uso de Memória
     plt.figure(figsize=(10, 5))
     plt.plot(df["Tamanho (N)"], df["Memória Esparsa (bytes)"], marker='o', label='Esparsa')
-    plt.plot(df["Tamanho (N)"], df["Memória Densa (bytes)"], marker='x', label='Densa')
+    plt.plot(df["Tamanho (N)"], df["Memória Tradicional (bytes)"], marker='x', label='Tradicional')
     plt.xlabel('Tamanho da Matriz (NxN)')
     plt.ylabel('Memória Estimada (Bytes)')
     plt.title('Uso de Memória')
