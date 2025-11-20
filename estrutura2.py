@@ -1,5 +1,3 @@
-import csv
-
 '''
 O nó da estrutura do heap que tem:
 - os filhos (esquerda e direita)
@@ -169,7 +167,7 @@ class Estrutura2:
             self.arvore.inserir(j, i, valor)
 
     # Procura um valor na matriz, cuidando se ela é transposta ou não
-    def acessar(self, i, j):
+    def get_val(self, i, j):
         if not self.is_transposta:
             return self.arvore.buscar(i, j)
         else:
@@ -206,7 +204,7 @@ class Estrutura2:
             matriz_C.inserir(i, j, valor)
 
         for i, j, valor_B in matriz_b._percorrer_elementos():
-            valor_C_atual = matriz_C.acessar(i, j)
+            valor_C_atual = matriz_C.get_val(i, j)
             matriz_C.inserir(i, j, valor_C_atual + valor_B)
         
         return matriz_C
@@ -247,7 +245,7 @@ class Estrutura2:
         for i, k, valor_A in lista_A:
             for k_prime, j, valor_B in lista_B:
                 if k == k_prime:
-                    valor_C_atual = matriz_C.acessar(i, j)
+                    valor_C_atual = matriz_C.get_val(i, j)
                     matriz_C.inserir(i, j, valor_C_atual + (valor_A * valor_B))
 
         return matriz_C
@@ -271,94 +269,9 @@ class Estrutura2:
             linha, coluna, valor = lista_elementos[i]
             print(f"  ({linha}, {coluna}) = {valor:.2f}")
 
-'''
-Essa função recebe a matriz e cria uma estrutura com a árvore e em seguida adiciona todos os elementos não nulos
-'''
-def csv_para_arvore(filename):
-    heap = Estrutura2(100, 100)
-    with open(filename, newline='') as f:
-        reader = csv.reader(f)
-        header = next(reader, None)
-
-        for row in reader:
-            if not row:
-                continue
-            i = int(row[0])
-            j = int(row[1])
-            val = int(row[2])
-            heap.inserir(i,j,val)
-
+def triples_to_heap(triples, n):
+    heap = Estrutura2(n, n)
+    for t in triples:
+        heap.inserir(t[0], t[1], t[2])
     return heap
-
-# Para teste das funções
-def main():
-    matriz_A = csv_para_arvore("sparse_n100_p5.csv")
-    matriz_B = csv_para_arvore("sparse_n100_p10.csv")
-
-    matriz_A.imprimir("A")
-    matriz_B.imprimir("B")
-
-    while True:
-
-        print("\n--- OPERAÇÕES ---")
-        print("1. Somar (C = A + B)")
-        print("2. Multiplicar por Escalar (C = A * k)")
-        print("3. Multiplicar Matrizes (C = A * B)")
-        print("4. Transpor Matriz A (A = A^T)")
-        print("5. Acessar elemento A[i, j]")
-        print("6. Inserir elemento em A[i, j]")
-        print("sair - Encerrar o programa")
-        
-        escolha = input("\nEscolha uma operação: ").strip().lower()
-
-        if escolha == '1':
-            resultado = matriz_A.somar(matriz_B)
-            if resultado:
-                resultado.imprimir("soma")
-                
-        elif escolha == '2':
-            try:
-                escalar_str = input("Digite o valor do escalar (k): ")
-                escalar = float(escalar_str)
-                resultado = matriz_A.multiplicar_por_escalar(escalar)
-                resultado.imprimir(f"A multiplicada por {escalar}")
-            except ValueError:
-                print("valor invalido")
-
-        elif escolha == '3':
-            resultado = matriz_A.multiplicar(matriz_B)
-            if resultado:
-                resultado.imprimir("AxB")
-
-        elif escolha == '4':
-            matriz_A.transpor()
-            matriz_A.imprimir("A transposta")
-
-        elif escolha == '5':
-            try:
-                i = int(input("Digite a linha (i): "))
-                j = int(input("Digite a coluna (j): "))
-                valor = matriz_A.acessar(i, j)
-                print(f"Valor A[{i},{j}] = {valor}")
-            except ValueError:
-                print("Indice invalido")
-
-        elif escolha == '6':
-            try:
-                i = int(input("Digite a linha (i): "))
-                j = int(input("Digite a coluna (j): "))
-                valor = float(input("Digite o valor: "))
-                matriz_A.inserir(i, j, valor)
-                print(f"Valor A[{i},{j}] inserido.")
-            except ValueError:
-                print("Indice invalido")
-
-        elif escolha == 'sair':
-            break
-        
-        else:
-            print("Opção inválida")
-
-
-if __name__ == "__main__":
-    main()
+    
