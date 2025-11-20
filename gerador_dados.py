@@ -3,16 +3,17 @@ import sys
 import random
 import pandas as pd
 import matplotlib.pyplot as plt
+from estrutura_2_teste import Estrutura2, No, Arvore, MatrizTradicional
 
 # --- IMPORTANTE: ---
-# Certifique-se de que suas classes Estruturaheap, Arvore, No e MatrizTradicional 
+# Certifique-se de que suas classes Estrutura2, Arvore, No e MatrizTradicional 
 # estão coladas aqui em cima ou importadas de outro arquivo.
-# from seu_arquivo import Estruturaheap, MatrizTradicional 
+# from seu_arquivo import Estrutura2, MatrizTradicional 
 
 # --- Funções Auxiliares ---
 
 def gerar_dados_aleatorios(n, m, densidade):
-    """Gera uma lista de triplas (i, j, valor) para popular as matrizes."""
+    # gera uma lista de triplas (i, j, valor) para popular as matrizes
     k = int(n * m * densidade)
     dados = []
     elementos_vistos = set()
@@ -32,7 +33,7 @@ def popular_matriz_esparsa(matriz, dados):
 
 def popular_matriz_densa(matriz, dados):
     for i, j, val in dados:
-        matriz.inserir(i, j, val) # Assumindo que MatrizTradicional tem inserir(i, j, val)
+        matriz.inserir(i, j, val) # ja que que MatrizTradicional tem "inserir(i, j, val)"
 
 # --- O Experimento ---
 
@@ -55,8 +56,8 @@ def rodar_experimento():
         # --- PREPARAÇÃO ---
         
         # Esparsa
-        esparsa_A = Estruturaheap(N, N)
-        esparsa_B = Estruturaheap(N, N)
+        esparsa_A = Estrutura2(N, N)
+        esparsa_B = Estrutura2(N, N)
         popular_matriz_esparsa(esparsa_A, dados_A)
         popular_matriz_esparsa(esparsa_B, dados_B)
         
