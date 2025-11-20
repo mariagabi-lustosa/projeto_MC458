@@ -47,7 +47,7 @@ class Arvore:
         return novo_no
 
     def _construir_balanceada_recursivo(self, elementos_ordenados):
-        # Constrói AVL a partir de lista ordenada em O(k). 
+        # Constrói arvore a partir de lista ordenada em O(k). 
         if not elementos_ordenados:
             return None
         
@@ -62,7 +62,7 @@ class Arvore:
         return no
 
     
-    def construir_a_partir_de_lista(self, lista_elementos):
+    def contruir_arvore(self, lista_elementos):
         #Insere todos os elementos de forma otimizada. O(k) 
         
 
@@ -205,18 +205,18 @@ class Estrutura2:
         return matriz_C
     
    
-    def _aplicar_escalar_recursivo(self, no, escalar):
+    def multp_escalar(self, no, escalar):
         
         if no:
             
             no.valor *= escalar
             
             
-            self._aplicar_escalar_recursivo(no.esquerda, escalar)
-            self._aplicar_escalar_recursivo(no.direita, escalar)
+            self.multp_escalar(no.esquerda, escalar)
+            self.multp_escalar(no.direita, escalar)
 
     # obter elementos ativos 
-    def _obter_nos_ativos_ordenados(self):
+    def filtro_zero(self):
         lista_ativos = []
         
         for no in self.arvore.em_ordem(): 
@@ -251,9 +251,9 @@ class Estrutura2:
         matriz_C = self.deep_copy() 
         
         
-        matriz_C._aplicar_escalar_recursivo(matriz_C.arvore.raiz, escalar)
-        nos_ativos = matriz_C._obter_nos_ativos_ordenados()
-        matriz_C.arvore.construir_a_partir_de_lista(nos_ativos)
+        matriz_C.multp_escalar(matriz_C.arvore.raiz, escalar)
+        nos_ativos = matriz_C.filtro_zero()
+        matriz_C.arvore.contruir_arvore(nos_ativos)
         
         return matriz_C
 
