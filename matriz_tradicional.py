@@ -48,7 +48,7 @@ class MatrizTradicional:
         if self.cols != other.rows:
             raise ValueError("Dimensões incompatíveis para multiplicação")
         
-        # Resultado tem linhas de A e colunas de B
+        # resultado tem linhas de A e colunas de B
         res = MatrizTradicional(self.rows, other.cols)
         
         # loop linhas de A
@@ -62,7 +62,7 @@ class MatrizTradicional:
                     soma += self.data[i][k] * other.data[k][j]
                 res.data[i][j] = soma
         return res
-""""
+    """
     def get_memory_usage(self):
         #estima o uso de memória em bytes
         # Tamanho da lista externa + tamanho das listas internas + tamanho dos floats
@@ -75,4 +75,42 @@ class MatrizTradicional:
                  total += sys.getsizeof(val)
         return totals
 
-        """"
+        """
+
+
+
+    # O(1)
+    def inserir(self, i, j, valor):
+        if 0 <= i < self.rows and 0 <= j < self.cols:
+            self.data[i][j] = float(valor)
+        else:
+            print(f"Erro: Índice ({i}, {j}) fora dos limites.")
+
+    # O(1)
+   
+    def acessar(self, i, j):
+        if 0 <= i < self.rows and 0 <= j < self.cols:
+            return self.data[i][j]
+        else:
+            print(f"Erro: Índice ({i}, {j}) fora dos limites.")
+            return None
+
+    #O(n*m))
+    
+    # criamos fisicamente uma nova matriz e copiamos item por item
+    def transpor(self):
+        # nova matriz com dimensões invertidas
+        m_transposta = MatrizTradicional(self.cols, self.rows)
+        
+        # copiando dados
+        for i in range(self.rows):
+            for j in range(self.cols):
+                # inversao, o que era [i][j] vira [j][i]
+                m_transposta.data[j][i] = self.data[i][j]
+        
+        # atualiza a classe com os novos dadso
+        self.rows = m_transposta.rows
+        self.cols = m_transposta.cols
+        self.data = m_transposta.data
+
+   
