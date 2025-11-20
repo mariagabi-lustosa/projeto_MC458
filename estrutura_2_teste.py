@@ -31,7 +31,7 @@ class Arvore:
         return 0
     
     def deep_copy_tree(self, no_original):
-        """ Realiza uma cópia profunda recursiva da árvore (O(k)). """
+       # Realiza uma cópia profunda recursiva da árvore (O(k))
         if no_original is None:
             return None
         
@@ -40,14 +40,14 @@ class Arvore:
         novo_no.altura = no_original.altura
         novo_no.esta_ativo = no_original.esta_ativo
         
-        # Constrói recursivamente as sub-árvores
+        # constroi recursivamente as sub-arvores
         novo_no.esquerda = self.deep_copy_tree(no_original.esquerda)
         novo_no.direita = self.deep_copy_tree(no_original.direita)
         
         return novo_no
 
     def _construir_balanceada_recursivo(self, elementos_ordenados):
-        # Constrói arvore a partir de lista ordenada em O(k). 
+        # constroi arvore a partir de lista ordenada em O(k). 
         if not elementos_ordenados:
             return None
         
@@ -63,7 +63,7 @@ class Arvore:
 
     
     def contruir_arvore(self, lista_elementos):
-        #Insere todos os elementos de forma otimizada. O(k) 
+        #insere todos os elementos em O(k) 
         
 
         self.raiz = self._construir_balanceada_recursivo(lista_elementos)
