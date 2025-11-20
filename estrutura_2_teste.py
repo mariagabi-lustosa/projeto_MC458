@@ -136,7 +136,7 @@ class Arvore:
             lista_nos.append(no)
             self._em_ordem_recursivo(no.direita, lista_nos)
 
-class Estrutura2:
+class Estruturaheap:
     def __init__(self, total_linhas, total_colunas):
         self.arvore = Arvore()
         self.m = total_linhas
@@ -193,7 +193,7 @@ class Estrutura2:
             print("Os tamanhos são diferentes")
             return None
 
-        matriz_C = Estrutura2(m_A, n_A)
+        matriz_C = Estruturaheap(m_A, n_A)
         
         for i, j, valor in self._percorrer_elementos():
             matriz_C.inserir(i, j, valor)
@@ -227,7 +227,7 @@ class Estrutura2:
     def deep_copy(self):
         # percorre todos os nós da arvore e criar novos nós (e a nova estrutura da árvore) em tempo linear.
         m_real, n_real = self.get_dimensoes()
-        nova_matriz = Estrutura2(m_real, n_real)
+        nova_matriz = Estruturaheap(m_real, n_real)
         
         # Copia as dimensões originais (m e n sem transposta) e o estado da transposta
         nova_matriz.m = self.m
@@ -244,7 +244,7 @@ class Estrutura2:
       
         if abs(escalar) < 1e-9:
             # Se multiplicar por zero, retorna matriz vazia 
-            return Estrutura2(self.m, self.n)
+            return Estruturaheap(self.m, self.n)
 
         # cria um clone da arvore
         m, n = self.get_dimensoes()
@@ -265,7 +265,7 @@ class Estrutura2:
             print("Dimensões diferente")
             return None
 
-        matriz_C = Estrutura2(m_A, n_B)
+        matriz_C = Estruturaheap(m_A, n_B)
         
         lista_A = self._percorrer_elementos()
         lista_B = outra_matriz._percorrer_elementos()
@@ -301,10 +301,10 @@ def matriz_para_arvore(matriz):
     linhas = len(matriz)
     if linhas == 0: 
         print('Matriz vazia')
-        return Estrutura2(0, 0)
+        return Estruturaheap(0, 0)
     
     colunas = len(matriz[0])
-    matriz_esparsa = Estrutura2(linhas, colunas)
+    matriz_esparsa = Estruturaheap(linhas, colunas)
 
     for i in range(linhas):
         for j in range(colunas):
