@@ -71,7 +71,7 @@ def rodar_bateria_testes():
     # Loop pelas potências de 10. 
     # OBS: range(2, 5) testa N=100, 1.000, 10.000. 
     # Aumentar para 6 ou 7 pode travar na Matriz Tradicional.
-    for i in range(2, 5):
+    for i in range(2, 6):
         n = 10**i
         graus_esparsidade = sparsity_degree(i)
         graus_esparsidade.sort() # Ordena para o gráfico ficar coerente
@@ -84,7 +84,7 @@ def rodar_bateria_testes():
             triple_B = generate_sparse_matrix(n, d)
             
             # Amostra de índices para teste de acesso
-            indices_teste = [(random.randint(0, n-1), random.randint(0, n-1)) for _ in range(20)]
+            indices_teste = [(random.randint(0, n-1), random.randint(0, n-1)) for _ in range(10)]
 
             # 2. Instanciação das Estruturas
             
@@ -275,6 +275,50 @@ def gerar_graficos_por_i(df):
         plt.grid(True, alpha=0.5)
         plt.savefig(f"grafico_N{n}_memoria.png")
         plt.close()
+        
+def gerar_graficos_separados(df):
+    # Lista das operações (exceto memória que é separada)
+    operacoes = [op for op in df['Operacao'].unique() if op != 'Uso de Memória']
+    
+    # 1. Gráfico de Memória
+    df_mem = df[df['Operacao'] == 'Uso de Memória']
+    plt.figure(figsize=(8, 5))
+    for est in df_mem['Estrutura'].unique():
+        subset = df_mem[df_mem['Estrutura'] == est]
+        plt.plot(subset['N'], subset['Memoria'], marker='o', label=est)
+    
+    plt.title("Comparação: Uso de Memória Estimado")
+    plt.xlabel("Dimensão da Matriz (N)")
+    plt.ylabel("Bytes (Log Scale)")
+    plt.yscale('log') # Escala logarítmica pois tradicional explode rápido
+    plt.legend()
+    plt.grid(True, which="both", ls="-", alpha=0.5)
+    plt.tight_layout()
+    plt.savefig("comparacao_memoria.png")
+    print("Gerado: comparacao_memoria.png")
+    plt.close()
+
+    # 2. Gráficos de Tempo (Um por operação)
+    for op in operacoes:
+        df_op = df[df['Operacao'] == op]
+        plt.figure(figsize=(8, 5))
+        
+        for est in df_op['Estrutura'].unique():
+            subset = df_op[df_op['Estrutura'] == est]
+            plt.plot(subset['N'], subset['Tempo'], marker='o', label=est)
+        
+        plt.title(f"Desempenho: {op}")
+        plt.xlabel("Dimensão da Matriz (N)")
+        plt.ylabel("Tempo (segundos)")
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        
+        # Sanitiza nome do arquivo
+        nome_arq = f"comparacao_{op.lower().replace(' ', '_').replace('/', '_')}.png"
+        plt.savefig(nome_arq)
+        print(f"Gerado: {nome_arq}")
+        plt.close()
 
 if __name__ == "__main__":
     print("--- Iniciando Benchmark Completo ---")
@@ -282,8 +326,10 @@ if __name__ == "__main__":
     
     print("\n--- Tabela de Resultados (Amostra) ---")
     print(df_resultado.head(10))
+    df_resultado.to_csv('resultados.csv', index=False)
     
     print("\n--- Gerando Gráficos ---")
     gerar_graficos_por_i(df_resultado)
+    gerar_graficos_separados(df_resultado)
     
     print("\nConcluído! Verifique os arquivos .png na pasta.")

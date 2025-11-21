@@ -189,6 +189,42 @@ class Estrutura2:
                 lista_elementos.append((no.coluna, no.linha, no.valor))
         return lista_elementos
 
+    # Versão otimizada da soma
+    def somar(self, matriz_b):
+        m_A, n_A = self.get_dimensoes()
+        m_B, n_B = matriz_b.get_dimensoes()
+
+        if (m_A, n_A) != (m_B, n_B):
+            print("Os tamanhos são diferentes")
+            return None
+
+        # Dicionário temporário para acumular valores: Chave=(i,j), Valor=soma
+        soma_temp = {}
+
+        # 1. Adiciona todos os elementos da Matriz A no dicionário
+        # Complexidade: O(Ka)
+        for i, j, valor in self._percorrer_elementos():
+            soma_temp[(i, j)] = valor
+
+        # 2. Percorre a Matriz B. Se a chave já existe, soma. Se não, cria.
+        # Complexidade: O(Kb) - Acesso ao dict é O(1) em média
+        for i, j, valor_b in matriz_b._percorrer_elementos():
+            if (i, j) in soma_temp:
+                soma_temp[(i, j)] += valor_b
+            else:
+                soma_temp[(i, j)] = valor_b
+
+        # 3. Constrói a árvore final de uma só vez
+        # Complexidade: O(Kc * log Kc)
+        matriz_C = Estrutura2(m_A, n_A)
+        
+        for (i, j), valor_final in soma_temp.items():
+            # Opcional: Só insere se o resultado não for zero (economiza espaço)
+            if valor_final != 0:
+                matriz_C.inserir(i, j, valor_final)
+
+        return matriz_C
+    '''
     # Cria uma nova estrutura C que contem a soma das duas matrizes
     def somar(self, matriz_b):
         m_A, n_A = self.get_dimensoes()
@@ -208,6 +244,7 @@ class Estrutura2:
             matriz_C.inserir(i, j, valor_C_atual + valor_B)
         
         return matriz_C
+    '''
 
     # Cria estutura c com a multiplicação da matriz por um escalar
     def multiplicar_por_escalar(self, escalar):
@@ -228,6 +265,49 @@ class Estrutura2:
         
         return matriz_C
 
+    # Versão otimizada da multiplicação
+    def multiplicar(self, matriz_b):
+        m_A, n_A = self.get_dimensoes()
+        m_B, n_B = matriz_b.get_dimensoes()
+
+        if n_A != m_B:
+            print("Dimensões incompatíveis para multiplicação.")
+            return None
+
+        # 1. Indexar a Matriz B por linhas para acesso rápido
+        # Dicionário onde: chave = linha (k), valor = lista de tuplas (coluna, valor)
+        linhas_b = {}
+        for k, j, valor_b in matriz_b._percorrer_elementos():
+            if k not in linhas_b:
+                linhas_b[k] = []
+            linhas_b[k].append((j, valor_b))
+
+        # Dicionário temporário para somar os produtos antes de criar a árvore
+        # Chave = (i, j), Valor = soma acumulada
+        resultados_temp = {}
+
+        # 2. Iterar pelos elementos de A e buscar diretamente em B
+        lista_A = self._percorrer_elementos()
+        
+        for i, k, valor_a in lista_A:
+            # Se a coluna 'k' de A existe como linha 'k' em B, multiplicamos
+            if k in linhas_b:
+                for j, valor_b in linhas_b[k]:
+                    chave_c = (i, j)
+                    produto = valor_a * valor_b
+                    
+                    if chave_c in resultados_temp:
+                        resultados_temp[chave_c] += produto
+                    else:
+                        resultados_temp[chave_c] = produto
+
+        # 3. Construir a estrutura de retorno (Arvore AVL)
+        matriz_C = Estrutura2(m_A, n_B)
+        for (i, j), valor in resultados_temp.items():
+            matriz_C.inserir(i, j, valor)
+
+        return matriz_C
+    '''
     # faz a multiplicação das matrizes
     def multiplicar(self, matriz_b):
         m_A, n_A = self.get_dimensoes()
@@ -249,6 +329,7 @@ class Estrutura2:
                     matriz_C.inserir(i, j, valor_C_atual + (valor_A * valor_B))
 
         return matriz_C
+    '''
     
     # imprime uma versão resumida da matriz    
     def imprimir(self, nome):
