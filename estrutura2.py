@@ -1,5 +1,5 @@
 '''
-O nó da estrutura do heap que tem:
+O nó da estrutura da arvore binaria de busca balanceada que tem:
 - os filhos (esquerda e direita)
 - a altura que ele está
 - sua linha correspondente na matriz
@@ -298,9 +298,9 @@ class Estrutura2:
             linha, coluna, valor = lista_elementos[i]
             print(f"  ({linha}, {coluna}) = {valor:.2f}")
 
-def triples_to_heap(triples, n):
-    heap = Estrutura2(n, n)
+def triples_to_tree(triples, n):
+    tree = Estrutura2(n, n)
     for t in triples:
-        heap.inserir(t[0], t[1], t[2])
-    return heap
+        tree.inserir(t[0], t[1], t[2])
+    return tree
     
