@@ -4,16 +4,9 @@ import random
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# ==============================================================================
-# IMPORTAÇÃO DAS ESTRUTURAS (Assumindo que os arquivos estão na mesma pasta)
-# ==============================================================================
 from estrutura2 import Estrutura2, triples_to_heap
 from tradicional import MatrizTradicional
 from estrutura1 import PairedHashTable, add_matrix, scalar_mul, matrix_mul, convert_triples_to_paired_hash
-
-# ==============================================================================
-# FUNÇÕES AUXILIARES
-# ==============================================================================
 
 def generate_sparse_matrix(n, sparse_percent):
     """Gera triplas (i, j, valor) para uma matriz n x n."""
@@ -43,7 +36,6 @@ def sparsity_degree(i):
     if i < 4:
         return [1, 5, 10, 20]
     else:
-        # Para matrizes muito grandes, a densidade deve ser muito baixa
         return [1/(10**(i+2)), 1/(10**(i+1)), 1/(10**i)]
 
 def medir_tempo(func, *args):
@@ -52,10 +44,6 @@ def medir_tempo(func, *args):
     func(*args)
     fim = time.time()
     return fim - inicio
-
-# ==============================================================================
-# EXECUÇÃO DOS TESTES
-# ==============================================================================
 
 def rodar_bateria_testes():
     # Dicionário acumulador de resultados
@@ -69,33 +57,28 @@ def rodar_bateria_testes():
     }
 
     # Loop pelas potências de 10. 
-    # OBS: range(2, 5) testa N=100, 1.000, 10.000. 
-    # Aumentar para 6 ou 7 pode travar na Matriz Tradicional.
     for i in range(2, 7):
         n = 10**i
         graus_esparsidade = sparsity_degree(i)
-        graus_esparsidade.sort() # Ordena para o gráfico ficar coerente
+        graus_esparsidade.sort() # Ordena para o gráfico ficar ok
 
         for d in graus_esparsidade:
             print(f"\n>>> Processando: N={n} | Densidade={d}%")
 
-            # 1. Geração dos dados brutos
+            # Criar as triplas 
             triple_A = generate_sparse_matrix(n, d)
             triple_B = generate_sparse_matrix(n, d)
             
             # Amostra de índices para teste de acesso
             indices_teste = [(random.randint(0, n-1), random.randint(0, n-1)) for _ in range(10)]
-
-            # 2. Instanciação das Estruturas
             
-            # --- Tradicional ---
+            # --- Tradicional --- (para i>5 ultrapassa o limite de memória)
             if i < 5:
                 trad_A = MatrizTradicional(n, n)
                 for t in triple_A: trad_A.inserir(t[0], t[1], t[2])
                 trad_B = MatrizTradicional(n, n)
                 for t in triple_B: trad_B.inserir(t[0], t[1], t[2])
             else:
-                print(f"Erro de Memória na Tradicional para N={n}")
                 trad_A = None
                 trad_B = None
 
@@ -108,7 +91,6 @@ def rodar_bateria_testes():
             heap_B = triples_to_heap(triple_B, n)
 
             # Lista para iteração
-            # Se trad_A for None (estourou memória), removemos da lista de testes deste loop
             lista_estruturas = [
                 ('Est. 1 - Hash', hash_A, hash_B),
                 ('Est. 2 - Heap', heap_A, heap_B)
@@ -116,10 +98,9 @@ def rodar_bateria_testes():
             if trad_A is not None:
                 lista_estruturas.insert(0, ('Tradicional', trad_A, trad_B))
 
-            # 3. Execução das Operações
+
             for nome, A, B in lista_estruturas:
-                
-                # --- Função auxiliar para salvar no dict ---
+                # --- Função para salvar os dados
                 def registrar(op, t, mem=0):
                     resultados['N'].append(n)
                     resultados['Densidade'].append(d)
@@ -128,21 +109,18 @@ def rodar_bateria_testes():
                     resultados['Tempo'].append(t)
                     resultados['Memoria'].append(mem)
 
-                # --- A. Estimativa de Memória ---
+                # --- Estimativa de Memória ---
                 memoria_est = 0
                 if nome == 'Tradicional':
-                    # Tamanho da lista externa + (N * tamanho da lista interna)
                     memoria_est = sys.getsizeof(A.data) + (n * sys.getsizeof(A.data[0]))
                 elif nome == 'Est. 2 - Heap':
-                    # Estimativa grosseira: k * tamanho do objeto nó
                     memoria_est = A.get_k() * 64 
                 elif nome == 'Est. 1 - Hash':
-                    # Tabelas forward/backward + tuplas
                     memoria_est = (sys.getsizeof(A.forward.hash_table) * 2) + (len(triple_A) * 100)
                 
                 registrar('Uso de Memória', 0, memoria_est)
 
-                # --- B. Acesso (Leitura) ---
+                # --- Acesso ---
                 def test_acesso():
                     for r, c in indices_teste:
                         if 'Hash' in nome:
@@ -150,9 +128,8 @@ def rodar_bateria_testes():
                         else:
                             val = A.get_val(r, c)
                 registrar('Acessar Elemento', medir_tempo(test_acesso))
-                print('acesso')
                 
-                # --- C. Inserção/Update ---
+                # --- Inserção/Update ---
                 def test_insercao():
                     for r, c in indices_teste:
                         if 'Hash' in nome:
@@ -160,16 +137,12 @@ def rodar_bateria_testes():
                         else:
                             A.inserir(r, c, 99)
                 registrar('Inserir Elemento', medir_tempo(test_insercao))
-                print('insert')
 
-                # --- D. Transposta ---
-                # Obs: Se a operação for in-place, precisamos medir e depois desfazer
+                # --- Transposta ---
                 def test_transposta():
                     if 'Hash' in nome:
-                        # Hash retorna nova matriz, não é in-place
                         A.transpose()
                     else:
-                        # Tradicional e Heap são in-place
                         A.transpor()
                 registrar('Transposta', medir_tempo(test_transposta))
                 print('transposta')
@@ -178,7 +151,7 @@ def rodar_bateria_testes():
                 if nome != 'Est. 1 - Hash':
                     A.transpor() 
 
-                # --- E. Soma ---
+                # --- Soma ---
                 def test_soma():
                     if 'Hash' in nome:
                         add_matrix(A, B)
@@ -187,17 +160,16 @@ def rodar_bateria_testes():
                 registrar('Soma', medir_tempo(test_soma))
                 print('soma')
 
-                # --- F. Multiplicação Escalar ---
+                # --- Multiplicação Escalar ---
                 def test_escalar():
                     if 'Hash' in nome:
                         scalar_mul(2.0, A)
                     else:
                         A.multiplicar_por_escalar(2)
                 registrar('Mult Escalar', medir_tempo(test_escalar))
-                print('escalar')
 
-                # --- G. Multiplicação de Matrizes ---
-                # CUIDADO: Tradicional é O(N^3). Pulamos se N > 500 para não travar o script
+                # --- Multiplicação de Matrizes ---
+                # Pulamos se N > 500 para não travar o script
                 pular_mult = (nome == 'Tradicional' and n > 500)
                 
                 if not pular_mult:
@@ -208,15 +180,9 @@ def rodar_bateria_testes():
                             A.multiplicar(B)
                     registrar('Mult Matriz', medir_tempo(test_mult_matriz))
                 else:
-                    # Registra None ou 0 para indicar que não rodou
                     registrar('Mult Matriz', 0)
-                print('mult matriz')
 
     return pd.DataFrame(resultados)
-
-# ==============================================================================
-# GERAÇÃO DOS GRÁFICOS (POR I)
-# ==============================================================================
 
 def gerar_graficos_por_i(df):
     """Gera um gráfico para cada N e para cada Operação, variando a densidade."""
@@ -280,60 +246,14 @@ def gerar_graficos_por_i(df):
         plt.savefig(f"grafico_N{n}_memoria.png")
         plt.close()
         
-def gerar_graficos_separados(df):
-    # Lista das operações (exceto memória que é separada)
-    operacoes = [op for op in df['Operacao'].unique() if op != 'Uso de Memória']
-    
-    # 1. Gráfico de Memória
-    df_mem = df[df['Operacao'] == 'Uso de Memória']
-    plt.figure(figsize=(8, 5))
-    for est in df_mem['Estrutura'].unique():
-        subset = df_mem[df_mem['Estrutura'] == est]
-        plt.plot(subset['N'], subset['Memoria'], marker='o', label=est)
-    
-    plt.title("Comparação: Uso de Memória Estimado")
-    plt.xlabel("Dimensão da Matriz (N)")
-    plt.ylabel("Bytes (Log Scale)")
-    plt.yscale('log') # Escala logarítmica pois tradicional explode rápido
-    plt.legend()
-    plt.grid(True, which="both", ls="-", alpha=0.5)
-    plt.tight_layout()
-    plt.savefig("comparacao_memoria.png")
-    print("Gerado: comparacao_memoria.png")
-    plt.close()
-
-    # 2. Gráficos de Tempo (Um por operação)
-    for op in operacoes:
-        df_op = df[df['Operacao'] == op]
-        plt.figure(figsize=(8, 5))
-        
-        for est in df_op['Estrutura'].unique():
-            subset = df_op[df_op['Estrutura'] == est]
-            plt.plot(subset['N'], subset['Tempo'], marker='o', label=est)
-        
-        plt.title(f"Desempenho: {op}")
-        plt.xlabel("Dimensão da Matriz (N)")
-        plt.ylabel("Tempo (segundos)")
-        plt.legend()
-        plt.grid(True)
-        plt.tight_layout()
-        
-        # Sanitiza nome do arquivo
-        nome_arq = f"comparacao_{op.lower().replace(' ', '_').replace('/', '_')}.png"
-        plt.savefig(nome_arq)
-        print(f"Gerado: {nome_arq}")
-        plt.close()
-
 if __name__ == "__main__":
-    print("--- Iniciando Benchmark Completo ---")
+    print("--- Iniciando Simulações ---")
     df_resultado = rodar_bateria_testes()
     
-    print("\n--- Tabela de Resultados (Amostra) ---")
-    print(df_resultado.head(10))
+    print("\n--- Csv de Resultados ---")
     df_resultado.to_csv('resultados.csv', index=False)
     
     print("\n--- Gerando Gráficos ---")
     gerar_graficos_por_i(df_resultado)
-    gerar_graficos_separados(df_resultado)
     
-    print("\nConcluído! Verifique os arquivos .png na pasta.")
+    print("\nFim")

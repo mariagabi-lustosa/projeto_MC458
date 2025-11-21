@@ -1,0 +1,316 @@
+N,Densidade,Estrutura,Operacao,Tempo,Memoria
+100,1.0,Tradicional,Uso de Memória,0.0,92920
+100,1.0,Tradicional,Acessar Elemento,3.0994415283203125e-06,0
+100,1.0,Tradicional,Inserir Elemento,2.86102294921875e-06,0
+100,1.0,Tradicional,Transposta,0.00042510032653808594,0
+100,1.0,Tradicional,Soma,0.0008251667022705078,0
+100,1.0,Tradicional,Mult Escalar,0.0004930496215820312,0
+100,1.0,Tradicional,Mult Matriz,0.05431938171386719,0
+100,1.0,Est. 1 - Hash,Uso de Memória,0.0,13312
+100,1.0,Est. 1 - Hash,Acessar Elemento,1.5735626220703125e-05,0
+100,1.0,Est. 1 - Hash,Inserir Elemento,1.5497207641601562e-05,0
+100,1.0,Est. 1 - Hash,Transposta,0.00015234947204589844,0
+100,1.0,Est. 1 - Hash,Soma,0.000247955322265625,0
+100,1.0,Est. 1 - Hash,Mult Escalar,0.0003077983856201172,0
+100,1.0,Est. 1 - Hash,Mult Matriz,0.00019431114196777344,0
+100,1.0,Est. 2 - Heap,Uso de Memória,0.0,6400
+100,1.0,Est. 2 - Heap,Acessar Elemento,1.6450881958007812e-05,0
+100,1.0,Est. 2 - Heap,Inserir Elemento,3.600120544433594e-05,0
+100,1.0,Est. 2 - Heap,Transposta,1.1920928955078125e-06,0
+100,1.0,Est. 2 - Heap,Soma,0.0007338523864746094,0
+100,1.0,Est. 2 - Heap,Mult Escalar,1.4781951904296875e-05,0
+100,1.0,Est. 2 - Heap,Mult Matriz,0.00043582916259765625,0
+100,5.0,Tradicional,Uso de Memória,0.0,92920
+100,5.0,Tradicional,Acessar Elemento,3.814697265625e-06,0
+100,5.0,Tradicional,Inserir Elemento,0.000186920166015625,0
+100,5.0,Tradicional,Transposta,0.0005619525909423828,0
+100,5.0,Tradicional,Soma,0.0005962848663330078,0
+100,5.0,Tradicional,Mult Escalar,0.0007967948913574219,0
+100,5.0,Tradicional,Mult Matriz,0.052326202392578125,0
+100,5.0,Est. 1 - Hash,Uso de Memória,0.0,67712
+100,5.0,Est. 1 - Hash,Acessar Elemento,1.1920928955078125e-05,0
+100,5.0,Est. 1 - Hash,Inserir Elemento,1.5735626220703125e-05,0
+100,5.0,Est. 1 - Hash,Transposta,0.00011205673217773438,0
+100,5.0,Est. 1 - Hash,Soma,0.0012993812561035156,0
+100,5.0,Est. 1 - Hash,Mult Escalar,0.002378702163696289,0
+100,5.0,Est. 1 - Hash,Mult Matriz,0.0038957595825195312,0
+100,5.0,Est. 2 - Heap,Uso de Memória,0.0,32000
+100,5.0,Est. 2 - Heap,Acessar Elemento,2.2649765014648438e-05,0
+100,5.0,Est. 2 - Heap,Inserir Elemento,4.6253204345703125e-05,0
+100,5.0,Est. 2 - Heap,Transposta,7.152557373046875e-07,0
+100,5.0,Est. 2 - Heap,Soma,0.0037577152252197266,0
+100,5.0,Est. 2 - Heap,Mult Escalar,4.38690185546875e-05,0
+100,5.0,Est. 2 - Heap,Mult Matriz,0.01618504524230957,0
+100,10.0,Tradicional,Uso de Memória,0.0,92920
+100,10.0,Tradicional,Acessar Elemento,6.198883056640625e-06,0
+100,10.0,Tradicional,Inserir Elemento,4.291534423828125e-06,0
+100,10.0,Tradicional,Transposta,0.0006148815155029297,0
+100,10.0,Tradicional,Soma,0.0009684562683105469,0
+100,10.0,Tradicional,Mult Escalar,0.0008156299591064453,0
+100,10.0,Tradicional,Mult Matriz,0.06835412979125977,0
+100,10.0,Est. 1 - Hash,Uso de Memória,0.0,132368
+100,10.0,Est. 1 - Hash,Acessar Elemento,1.2874603271484375e-05,0
+100,10.0,Est. 1 - Hash,Inserir Elemento,1.430511474609375e-05,0
+100,10.0,Est. 1 - Hash,Transposta,0.0002741813659667969,0
+100,10.0,Est. 1 - Hash,Soma,0.002998828887939453,0
+100,10.0,Est. 1 - Hash,Mult Escalar,0.0011317729949951172,0
+100,10.0,Est. 1 - Hash,Mult Matriz,0.04509282112121582,0
+100,10.0,Est. 2 - Heap,Uso de Memória,0.0,64000
+100,10.0,Est. 2 - Heap,Acessar Elemento,2.5272369384765625e-05,0
+100,10.0,Est. 2 - Heap,Inserir Elemento,4.696846008300781e-05,0
+100,10.0,Est. 2 - Heap,Transposta,2.384185791015625e-07,0
+100,10.0,Est. 2 - Heap,Soma,0.008548974990844727,0
+100,10.0,Est. 2 - Heap,Mult Escalar,9.894371032714844e-05,0
+100,10.0,Est. 2 - Heap,Mult Matriz,0.03368687629699707,0
+100,20.0,Tradicional,Uso de Memória,0.0,92920
+100,20.0,Tradicional,Acessar Elemento,5.0067901611328125e-06,0
+100,20.0,Tradicional,Inserir Elemento,2.86102294921875e-06,0
+100,20.0,Tradicional,Transposta,0.00046539306640625,0
+100,20.0,Tradicional,Soma,0.0006744861602783203,0
+100,20.0,Tradicional,Mult Escalar,0.0005414485931396484,0
+100,20.0,Tradicional,Mult Matriz,0.057702064514160156,0
+100,20.0,Est. 1 - Hash,Uso de Memória,0.0,266096
+100,20.0,Est. 1 - Hash,Acessar Elemento,1.33514404296875e-05,0
+100,20.0,Est. 1 - Hash,Inserir Elemento,1.5497207641601562e-05,0
+100,20.0,Est. 1 - Hash,Transposta,0.00048089027404785156,0
+100,20.0,Est. 1 - Hash,Soma,0.0060884952545166016,0
+100,20.0,Est. 1 - Hash,Mult Escalar,0.002965688705444336,0
+100,20.0,Est. 1 - Hash,Mult Matriz,0.09292244911193848,0
+100,20.0,Est. 2 - Heap,Uso de Memória,0.0,128000
+100,20.0,Est. 2 - Heap,Acessar Elemento,2.7179718017578125e-05,0
+100,20.0,Est. 2 - Heap,Inserir Elemento,5.364418029785156e-05,0
+100,20.0,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+100,20.0,Est. 2 - Heap,Soma,0.018515825271606445,0
+100,20.0,Est. 2 - Heap,Mult Escalar,0.0002541542053222656,0
+100,20.0,Est. 2 - Heap,Mult Matriz,0.057562828063964844,0
+1000,1.0,Tradicional,Uso de Memória,0.0,8864856
+1000,1.0,Tradicional,Acessar Elemento,6.9141387939453125e-06,0
+1000,1.0,Tradicional,Inserir Elemento,3.337860107421875e-06,0
+1000,1.0,Tradicional,Transposta,0.05543923377990723,0
+1000,1.0,Tradicional,Soma,0.061783790588378906,0
+1000,1.0,Tradicional,Mult Escalar,0.053717851638793945,0
+1000,1.0,Tradicional,Mult Matriz,0.0,0
+1000,1.0,Est. 1 - Hash,Uso de Memória,0.0,1346032
+1000,1.0,Est. 1 - Hash,Acessar Elemento,1.3828277587890625e-05,0
+1000,1.0,Est. 1 - Hash,Inserir Elemento,1.430511474609375e-05,0
+1000,1.0,Est. 1 - Hash,Transposta,0.011260271072387695,0
+1000,1.0,Est. 1 - Hash,Soma,0.05567359924316406,0
+1000,1.0,Est. 1 - Hash,Mult Escalar,0.07492971420288086,0
+1000,1.0,Est. 1 - Hash,Mult Matriz,0.3549983501434326,0
+1000,1.0,Est. 2 - Heap,Uso de Memória,0.0,640000
+1000,1.0,Est. 2 - Heap,Acessar Elemento,4.100799560546875e-05,0
+1000,1.0,Est. 2 - Heap,Inserir Elemento,7.82012939453125e-05,0
+1000,1.0,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+1000,1.0,Est. 2 - Heap,Soma,0.1304304599761963,0
+1000,1.0,Est. 2 - Heap,Mult Escalar,0.001195669174194336,0
+1000,1.0,Est. 2 - Heap,Mult Matriz,0.62626051902771,0
+1000,5.0,Tradicional,Uso de Memória,0.0,8864856
+1000,5.0,Tradicional,Acessar Elemento,7.152557373046875e-06,0
+1000,5.0,Tradicional,Inserir Elemento,4.291534423828125e-06,0
+1000,5.0,Tradicional,Transposta,0.06518268585205078,0
+1000,5.0,Tradicional,Soma,0.0731196403503418,0
+1000,5.0,Tradicional,Mult Escalar,0.05902290344238281,0
+1000,5.0,Tradicional,Mult Matriz,0.0,0
+1000,5.0,Est. 1 - Hash,Uso de Memória,0.0,6601968
+1000,5.0,Est. 1 - Hash,Acessar Elemento,1.3113021850585938e-05,0
+1000,5.0,Est. 1 - Hash,Inserir Elemento,1.5497207641601562e-05,0
+1000,5.0,Est. 1 - Hash,Transposta,0.13702678680419922,0
+1000,5.0,Est. 1 - Hash,Soma,0.49628567695617676,0
+1000,5.0,Est. 1 - Hash,Mult Escalar,0.2380661964416504,0
+1000,5.0,Est. 1 - Hash,Mult Matriz,10.80875849723816,0
+1000,5.0,Est. 2 - Heap,Uso de Memória,0.0,3200000
+1000,5.0,Est. 2 - Heap,Acessar Elemento,7.414817810058594e-05,0
+1000,5.0,Est. 2 - Heap,Inserir Elemento,0.00010132789611816406,0
+1000,5.0,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+1000,5.0,Est. 2 - Heap,Soma,0.6660115718841553,0
+1000,5.0,Est. 2 - Heap,Mult Escalar,0.0055544376373291016,0
+1000,5.0,Est. 2 - Heap,Mult Matriz,7.624401807785034,0
+1000,10.0,Tradicional,Uso de Memória,0.0,8864856
+1000,10.0,Tradicional,Acessar Elemento,8.58306884765625e-06,0
+1000,10.0,Tradicional,Inserir Elemento,5.0067901611328125e-06,0
+1000,10.0,Tradicional,Transposta,0.05864906311035156,0
+1000,10.0,Tradicional,Soma,0.07611751556396484,0
+1000,10.0,Tradicional,Mult Escalar,0.061153411865234375,0
+1000,10.0,Tradicional,Mult Matriz,0.0,0
+1000,10.0,Est. 1 - Hash,Uso de Memória,0.0,13248112
+1000,10.0,Est. 1 - Hash,Acessar Elemento,1.71661376953125e-05,0
+1000,10.0,Est. 1 - Hash,Inserir Elemento,1.811981201171875e-05,0
+1000,10.0,Est. 1 - Hash,Transposta,0.24070286750793457,0
+1000,10.0,Est. 1 - Hash,Soma,1.0321931838989258,0
+1000,10.0,Est. 1 - Hash,Mult Escalar,0.6950483322143555,0
+1000,10.0,Est. 1 - Hash,Mult Matriz,46.63662099838257,0
+1000,10.0,Est. 2 - Heap,Uso de Memória,0.0,6400000
+1000,10.0,Est. 2 - Heap,Acessar Elemento,5.817413330078125e-05,0
+1000,10.0,Est. 2 - Heap,Inserir Elemento,9.131431579589844e-05,0
+1000,10.0,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+1000,10.0,Est. 2 - Heap,Soma,1.4152703285217285,0
+1000,10.0,Est. 2 - Heap,Mult Escalar,0.011170625686645508,0
+1000,10.0,Est. 2 - Heap,Mult Matriz,10.763765096664429,0
+1000,20.0,Tradicional,Uso de Memória,0.0,8864856
+1000,20.0,Tradicional,Acessar Elemento,1.1205673217773438e-05,0
+1000,20.0,Tradicional,Inserir Elemento,5.4836273193359375e-06,0
+1000,20.0,Tradicional,Transposta,0.0635230541229248,0
+1000,20.0,Tradicional,Soma,0.08507204055786133,0
+1000,20.0,Tradicional,Mult Escalar,0.06349802017211914,0
+1000,20.0,Tradicional,Mult Matriz,0.0,0
+1000,20.0,Est. 1 - Hash,Uso de Memória,0.0,26585328
+1000,20.0,Est. 1 - Hash,Acessar Elemento,1.5497207641601562e-05,0
+1000,20.0,Est. 1 - Hash,Inserir Elemento,1.811981201171875e-05,0
+1000,20.0,Est. 1 - Hash,Transposta,0.07591557502746582,0
+1000,20.0,Est. 1 - Hash,Soma,1.2617757320404053,0
+1000,20.0,Est. 1 - Hash,Mult Escalar,0.5715627670288086,0
+1000,20.0,Est. 1 - Hash,Mult Matriz,345.14650416374207,0
+1000,20.0,Est. 2 - Heap,Uso de Memória,0.0,12800000
+1000,20.0,Est. 2 - Heap,Acessar Elemento,0.01047062873840332,0
+1000,20.0,Est. 2 - Heap,Inserir Elemento,0.007100582122802734,0
+1000,20.0,Est. 2 - Heap,Transposta,1.1920928955078125e-06,0
+1000,20.0,Est. 2 - Heap,Soma,3.925586223602295,0
+1000,20.0,Est. 2 - Heap,Mult Escalar,0.024680137634277344,0
+1000,20.0,Est. 2 - Heap,Mult Matriz,19.01030683517456,0
+10000,1e-06,Tradicional,Uso de Memória,0.0,851845176
+10000,1e-06,Tradicional,Acessar Elemento,0.0002334117889404297,0
+10000,1e-06,Tradicional,Inserir Elemento,1.811981201171875e-05,0
+10000,1e-06,Tradicional,Transposta,9.73282527923584,0
+10000,1e-06,Tradicional,Soma,8.063323974609375,0
+10000,1e-06,Tradicional,Mult Escalar,6.569321632385254,0
+10000,1e-06,Tradicional,Mult Matriz,0.0,0
+10000,1e-06,Est. 1 - Hash,Uso de Memória,0.0,276
+10000,1e-06,Est. 1 - Hash,Acessar Elemento,1.4066696166992188e-05,0
+10000,1e-06,Est. 1 - Hash,Inserir Elemento,1.6927719116210938e-05,0
+10000,1e-06,Est. 1 - Hash,Transposta,6.9141387939453125e-06,0
+10000,1e-06,Est. 1 - Hash,Soma,0.00012111663818359375,0
+10000,1e-06,Est. 1 - Hash,Mult Escalar,3.7670135498046875e-05,0
+10000,1e-06,Est. 1 - Hash,Mult Matriz,0.001285552978515625,0
+10000,1e-06,Est. 2 - Heap,Uso de Memória,0.0,64
+10000,1e-06,Est. 2 - Heap,Acessar Elemento,5.7220458984375e-06,0
+10000,1e-06,Est. 2 - Heap,Inserir Elemento,2.7894973754882812e-05,0
+10000,1e-06,Est. 2 - Heap,Transposta,7.152557373046875e-07,0
+10000,1e-06,Est. 2 - Heap,Soma,7.62939453125e-05,0
+10000,1e-06,Est. 2 - Heap,Mult Escalar,2.86102294921875e-06,0
+10000,1e-06,Est. 2 - Heap,Mult Matriz,7.62939453125e-06,0
+10000,1e-05,Tradicional,Uso de Memória,0.0,851845176
+10000,1e-05,Tradicional,Acessar Elemento,1.1205673217773438e-05,0
+10000,1e-05,Tradicional,Inserir Elemento,4.5299530029296875e-06,0
+10000,1e-05,Tradicional,Transposta,9.28360915184021,0
+10000,1e-05,Tradicional,Soma,7.607627868652344,0
+10000,1e-05,Tradicional,Mult Escalar,6.834028005599976,0
+10000,1e-05,Tradicional,Mult Matriz,0.0,0
+10000,1e-05,Est. 1 - Hash,Uso de Memória,0.0,1496
+10000,1e-05,Est. 1 - Hash,Acessar Elemento,1.4543533325195312e-05,0
+10000,1e-05,Est. 1 - Hash,Inserir Elemento,1.4781951904296875e-05,0
+10000,1e-05,Est. 1 - Hash,Transposta,8.58306884765625e-06,0
+10000,1e-05,Est. 1 - Hash,Soma,4.863739013671875e-05,0
+10000,1e-05,Est. 1 - Hash,Mult Escalar,2.7179718017578125e-05,0
+10000,1e-05,Est. 1 - Hash,Mult Matriz,2.5272369384765625e-05,0
+10000,1e-05,Est. 2 - Heap,Uso de Memória,0.0,640
+10000,1e-05,Est. 2 - Heap,Acessar Elemento,1.0728836059570312e-05,0
+10000,1e-05,Est. 2 - Heap,Inserir Elemento,2.9087066650390625e-05,0
+10000,1e-05,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+10000,1e-05,Est. 2 - Heap,Soma,0.00017142295837402344,0
+10000,1e-05,Est. 2 - Heap,Mult Escalar,4.5299530029296875e-06,0
+10000,1e-05,Est. 2 - Heap,Mult Matriz,1.6927719116210938e-05,0
+10000,0.0001,Tradicional,Uso de Memória,0.0,851845176
+10000,0.0001,Tradicional,Acessar Elemento,1.1682510375976562e-05,0
+10000,0.0001,Tradicional,Inserir Elemento,4.291534423828125e-06,0
+10000,0.0001,Tradicional,Transposta,9.395205974578857,0
+10000,0.0001,Tradicional,Soma,8.082335948944092,0
+10000,0.0001,Tradicional,Mult Escalar,6.8177289962768555,0
+10000,0.0001,Tradicional,Mult Matriz,0.0,0
+10000,0.0001,Est. 1 - Hash,Uso de Memória,0.0,13312
+10000,0.0001,Est. 1 - Hash,Acessar Elemento,1.5497207641601562e-05,0
+10000,0.0001,Est. 1 - Hash,Inserir Elemento,1.5974044799804688e-05,0
+10000,0.0001,Est. 1 - Hash,Transposta,2.5272369384765625e-05,0
+10000,0.0001,Est. 1 - Hash,Soma,0.0006606578826904297,0
+10000,0.0001,Est. 1 - Hash,Mult Escalar,0.00022649765014648438,0
+10000,0.0001,Est. 1 - Hash,Mult Matriz,0.00012421607971191406,0
+10000,0.0001,Est. 2 - Heap,Uso de Memória,0.0,6400
+10000,0.0001,Est. 2 - Heap,Acessar Elemento,1.4781951904296875e-05,0
+10000,0.0001,Est. 2 - Heap,Inserir Elemento,3.528594970703125e-05,0
+10000,0.0001,Est. 2 - Heap,Transposta,2.384185791015625e-07,0
+10000,0.0001,Est. 2 - Heap,Soma,0.0012595653533935547,0
+10000,0.0001,Est. 2 - Heap,Mult Escalar,1.049041748046875e-05,0
+10000,0.0001,Est. 2 - Heap,Mult Matriz,6.103515625e-05,0
+100000,1e-07,Est. 1 - Hash,Uso de Memória,0.0,1396
+100000,1e-07,Est. 1 - Hash,Acessar Elemento,1.1205673217773438e-05,0
+100000,1e-07,Est. 1 - Hash,Inserir Elemento,1.2874603271484375e-05,0
+100000,1e-07,Est. 1 - Hash,Transposta,6.198883056640625e-06,0
+100000,1e-07,Est. 1 - Hash,Soma,4.649162292480469e-05,0
+100000,1e-07,Est. 1 - Hash,Mult Escalar,5.555152893066406e-05,0
+100000,1e-07,Est. 1 - Hash,Mult Matriz,3.266334533691406e-05,0
+100000,1e-07,Est. 2 - Heap,Uso de Memória,0.0,576
+100000,1e-07,Est. 2 - Heap,Acessar Elemento,3.361701965332031e-05,0
+100000,1e-07,Est. 2 - Heap,Inserir Elemento,5.435943603515625e-05,0
+100000,1e-07,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+100000,1e-07,Est. 2 - Heap,Soma,7.82012939453125e-05,0
+100000,1e-07,Est. 2 - Heap,Mult Escalar,2.384185791015625e-06,0
+100000,1e-07,Est. 2 - Heap,Mult Matriz,1.0013580322265625e-05,0
+100000,1e-06,Est. 1 - Hash,Uso de Memória,0.0,13312
+100000,1e-06,Est. 1 - Hash,Acessar Elemento,4.0531158447265625e-06,0
+100000,1e-06,Est. 1 - Hash,Inserir Elemento,6.9141387939453125e-06,0
+100000,1e-06,Est. 1 - Hash,Transposta,1.5020370483398438e-05,0
+100000,1e-06,Est. 1 - Hash,Soma,0.00021767616271972656,0
+100000,1e-06,Est. 1 - Hash,Mult Escalar,0.00010585784912109375,0
+100000,1e-06,Est. 1 - Hash,Mult Matriz,6.771087646484375e-05,0
+100000,1e-06,Est. 2 - Heap,Uso de Memória,0.0,6400
+100000,1e-06,Est. 2 - Heap,Acessar Elemento,1.239776611328125e-05,0
+100000,1e-06,Est. 2 - Heap,Inserir Elemento,3.337860107421875e-05,0
+100000,1e-06,Est. 2 - Heap,Transposta,2.384185791015625e-07,0
+100000,1e-06,Est. 2 - Heap,Soma,0.0007145404815673828,0
+100000,1e-06,Est. 2 - Heap,Mult Escalar,1.0251998901367188e-05,0
+100000,1e-06,Est. 2 - Heap,Mult Matriz,5.841255187988281e-05,0
+100000,1e-05,Est. 1 - Hash,Uso de Memória,0.0,132368
+100000,1e-05,Est. 1 - Hash,Acessar Elemento,7.152557373046875e-06,0
+100000,1e-05,Est. 1 - Hash,Inserir Elemento,8.344650268554688e-06,0
+100000,1e-05,Est. 1 - Hash,Transposta,0.0010573863983154297,0
+100000,1e-05,Est. 1 - Hash,Soma,0.004506826400756836,0
+100000,1e-05,Est. 1 - Hash,Mult Escalar,0.0013074874877929688,0
+100000,1e-05,Est. 1 - Hash,Mult Matriz,0.0009717941284179688,0
+100000,1e-05,Est. 2 - Heap,Uso de Memória,0.0,64000
+100000,1e-05,Est. 2 - Heap,Acessar Elemento,2.3365020751953125e-05,0
+100000,1e-05,Est. 2 - Heap,Inserir Elemento,5.459785461425781e-05,0
+100000,1e-05,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+100000,1e-05,Est. 2 - Heap,Soma,0.010700464248657227,0
+100000,1e-05,Est. 2 - Heap,Mult Escalar,0.00018262863159179688,0
+100000,1e-05,Est. 2 - Heap,Mult Matriz,0.0008027553558349609,0
+1000000,1e-08,Est. 1 - Hash,Uso de Memória,0.0,13312
+1000000,1e-08,Est. 1 - Hash,Acessar Elemento,1.239776611328125e-05,0
+1000000,1e-08,Est. 1 - Hash,Inserir Elemento,1.4066696166992188e-05,0
+1000000,1e-08,Est. 1 - Hash,Transposta,2.9325485229492188e-05,0
+1000000,1e-08,Est. 1 - Hash,Soma,0.000347137451171875,0
+1000000,1e-08,Est. 1 - Hash,Mult Escalar,0.0001468658447265625,0
+1000000,1e-08,Est. 1 - Hash,Mult Matriz,7.963180541992188e-05,0
+1000000,1e-08,Est. 2 - Heap,Uso de Memória,0.0,6400
+1000000,1e-08,Est. 2 - Heap,Acessar Elemento,1.4543533325195312e-05,0
+1000000,1e-08,Est. 2 - Heap,Inserir Elemento,3.4332275390625e-05,0
+1000000,1e-08,Est. 2 - Heap,Transposta,2.384185791015625e-07,0
+1000000,1e-08,Est. 2 - Heap,Soma,0.0009834766387939453,0
+1000000,1e-08,Est. 2 - Heap,Mult Escalar,1.1682510375976562e-05,0
+1000000,1e-08,Est. 2 - Heap,Mult Matriz,0.000194549560546875,0
+1000000,1e-07,Est. 1 - Hash,Uso de Memória,0.0,132268
+1000000,1e-07,Est. 1 - Hash,Acessar Elemento,1.6450881958007812e-05,0
+1000000,1e-07,Est. 1 - Hash,Inserir Elemento,1.5974044799804688e-05,0
+1000000,1e-07,Est. 1 - Hash,Transposta,0.001041412353515625,0
+1000000,1e-07,Est. 1 - Hash,Soma,0.003256082534790039,0
+1000000,1e-07,Est. 1 - Hash,Mult Escalar,0.0012841224670410156,0
+1000000,1e-07,Est. 1 - Hash,Mult Matriz,0.001544952392578125,0
+1000000,1e-07,Est. 2 - Heap,Uso de Memória,0.0,63936
+1000000,1e-07,Est. 2 - Heap,Acessar Elemento,2.193450927734375e-05,0
+1000000,1e-07,Est. 2 - Heap,Inserir Elemento,5.0067901611328125e-05,0
+1000000,1e-07,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+1000000,1e-07,Est. 2 - Heap,Soma,0.010945796966552734,0
+1000000,1e-07,Est. 2 - Heap,Mult Escalar,0.00010347366333007812,0
+1000000,1e-07,Est. 2 - Heap,Mult Matriz,0.0010311603546142578,0
+1000000,1e-06,Est. 1 - Hash,Uso de Memória,0.0,1346032
+1000000,1e-06,Est. 1 - Hash,Acessar Elemento,1.4543533325195312e-05,0
+1000000,1e-06,Est. 1 - Hash,Inserir Elemento,1.4781951904296875e-05,0
+1000000,1e-06,Est. 1 - Hash,Transposta,0.005067348480224609,0
+1000000,1e-06,Est. 1 - Hash,Soma,0.05476999282836914,0
+1000000,1e-06,Est. 1 - Hash,Mult Escalar,0.02359914779663086,0
+1000000,1e-06,Est. 1 - Hash,Mult Matriz,0.023087739944458008,0
+1000000,1e-06,Est. 2 - Heap,Uso de Memória,0.0,640000
+1000000,1e-06,Est. 2 - Heap,Acessar Elemento,5.245208740234375e-05,0
+1000000,1e-06,Est. 2 - Heap,Inserir Elemento,7.987022399902344e-05,0
+1000000,1e-06,Est. 2 - Heap,Transposta,4.76837158203125e-07,0
+1000000,1e-06,Est. 2 - Heap,Soma,0.14101004600524902,0
+1000000,1e-06,Est. 2 - Heap,Mult Escalar,0.0014569759368896484,0
+1000000,1e-06,Est. 2 - Heap,Mult Matriz,0.013799905776977539,0
