@@ -71,7 +71,7 @@ def rodar_bateria_testes():
     # Loop pelas potências de 10. 
     # OBS: range(2, 5) testa N=100, 1.000, 10.000. 
     # Aumentar para 6 ou 7 pode travar na Matriz Tradicional.
-    for i in range(2, 6):
+    for i in range(2, 7):
         n = 10**i
         graus_esparsidade = sparsity_degree(i)
         graus_esparsidade.sort() # Ordena para o gráfico ficar coerente
@@ -89,12 +89,12 @@ def rodar_bateria_testes():
             # 2. Instanciação das Estruturas
             
             # --- Tradicional ---
-            try:
+            if i < 5:
                 trad_A = MatrizTradicional(n, n)
                 for t in triple_A: trad_A.inserir(t[0], t[1], t[2])
                 trad_B = MatrizTradicional(n, n)
                 for t in triple_B: trad_B.inserir(t[0], t[1], t[2])
-            except MemoryError:
+            else:
                 print(f"Erro de Memória na Tradicional para N={n}")
                 trad_A = None
                 trad_B = None
@@ -150,7 +150,8 @@ def rodar_bateria_testes():
                         else:
                             val = A.get_val(r, c)
                 registrar('Acessar Elemento', medir_tempo(test_acesso))
-
+                print('acesso')
+                
                 # --- C. Inserção/Update ---
                 def test_insercao():
                     for r, c in indices_teste:
@@ -159,6 +160,7 @@ def rodar_bateria_testes():
                         else:
                             A.inserir(r, c, 99)
                 registrar('Inserir Elemento', medir_tempo(test_insercao))
+                print('insert')
 
                 # --- D. Transposta ---
                 # Obs: Se a operação for in-place, precisamos medir e depois desfazer
@@ -169,9 +171,8 @@ def rodar_bateria_testes():
                     else:
                         # Tradicional e Heap são in-place
                         A.transpor()
-
-                tempo_t = medir_tempo(test_transposta)
-                registrar('Transposta', tempo_t)
+                registrar('Transposta', medir_tempo(test_transposta))
+                print('transposta')
 
                 # Desfazer alteração para não afetar próximos testes (se in-place)
                 if nome != 'Est. 1 - Hash':
@@ -184,6 +185,7 @@ def rodar_bateria_testes():
                     else:
                         A.somar(B)
                 registrar('Soma', medir_tempo(test_soma))
+                print('soma')
 
                 # --- F. Multiplicação Escalar ---
                 def test_escalar():
@@ -192,6 +194,7 @@ def rodar_bateria_testes():
                     else:
                         A.multiplicar_por_escalar(2)
                 registrar('Mult Escalar', medir_tempo(test_escalar))
+                print('escalar')
 
                 # --- G. Multiplicação de Matrizes ---
                 # CUIDADO: Tradicional é O(N^3). Pulamos se N > 500 para não travar o script
@@ -207,6 +210,7 @@ def rodar_bateria_testes():
                 else:
                     # Registra None ou 0 para indicar que não rodou
                     registrar('Mult Matriz', 0)
+                print('mult matriz')
 
     return pd.DataFrame(resultados)
 
